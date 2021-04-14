@@ -1,0 +1,97 @@
+// @test Проверка, в случае неочевидного, горизонтального скролла.
+// * {
+//   border: 1px solid #f00 !important;
+// }
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+// reset (скорее полное отключение) фокуса кнопок у firefox
+// кастомный фокус в firefox добавить очень сложно в отличие от Chrome
+*:focus {
+  outline:none !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Media
+// Если вносишь изменения, не забудь отразить их в mixins.scss в %placeholders
+$xs: ("min-width: 320px");
+$xs-locked: ("max-width: 575px");
+$sm: ("min-width: 576px");
+$md: ("min-width: 768px");
+$lg: ("min-width: 992px");
+$xl: ("min-width: 1200px");
+
+// PALETTE
+// shortcut "cr" => color: rgba(text-color, .5);
+// Ex $black-op: rgba($black, .3);
+$black: #000000;
+$white: #ffffff;
+
+// SCAFFOLDING
+$font-size-base: 16px;
+$line-height-base: 18px;
+// Точно sans-serif? Вдруг в этот раз это не так
+$font-family-base: "Raleway", Arial, sans-serif;
+$font-family-secondary: "Firasans", Arial, sans-serif;
+$text-color-base: $black;
+// Не забудь изменить на твой вариант фона
+$body-bg: grey;
+
+// Z-INDEX
+$elements: project-overlay, modals, success;
+
+// Пример записи
+// .project-cover {
+//    z-index: index($elements, project-overlay);
+// }
+// Или если нужен другой уровень
+// .form {
+//    z-index: index($elements, modals);
+// }
+// В случае, если появится необходимость в новом значении, для нового элемента - просто дать ему имя и записать в том месте, где он должен быть на сайте (выше оверлея, но ниже pop-up aka modals). Код в таком случае будет выглядеть вот так: $elements: project-overlay, navigation, modals; И все элементы изменят z-index соответственно новому порядку.
+
+// ------------- Примеры наименования переменных -----------
+
+// FONT COLOR
+// $text-color-secondary: $white;
+//base, secondary, tertiary, accent, success, danger, op, functions (-address, -promo, etc);
+
+// BACKGROUND
+// $brand-default: rgba($blue, .5);
+// primary, primary-contrast, info, success, warning, danger, op, functions (-address, -promo, etc);
+
+//FORM
+// input, radio, checkbox, border;
+// default, hover, focus, warning, text, icon,
+// Ex: $form-input-border-hover: 2px solid $blue__casper;
+// Ex: $form-radio-text-default: $text-color-tertiary;
+// EX: $form-radio-icon-default: rgba($text-color-tertiary, 0.4);
+
+// BTN
+// Базовые: bg*, text-color, font-weight, border
+// Действие**: bg-hover, text-color-hover, bg-text-color;
+// Функция: form, slider, buy, page etc.
+// Состояния: default, primary, info, success, warning, danger, disabled
+// Версии вьюпорта: m, t, d;
+// *bg - часто будет прозрачным не забывай задавать transparent в таком случае
+// **Часто бывает вариацией уже известного цвета с opacity или rgba()
+// Ex: $btn-form-default-hover-bg-m
+
+// LINKS
+// text-color, -hover, -underline, -active(:active), -selected, -disabled
+// *selected - например, страница на которой находится пользователь
+// Ex: $link-info-text-color-hover; $link-default-text-color-hover;

@@ -1,0 +1,412 @@
+F1 > 'fold' > Editor: Fold All/Unfold All:
+Памятка верстальщику:
+  ☐ Состояние no-js - если оно есть, то всегда начинай верстать с него. Пример: мобильная навигация версталась в открытом состоянии - именно так она и будет выглядеть для пользователя без JS:
+  ☐ Тест - блоковый принцип:
+    ☐ Блок - сверстан во всех версиях
+    ☐ Блок - проверяется на растягивание окна браузера
+    ☐ Блок - проверяется на кроссбраузерность
+    ☐ Блок - проверяется на уменьшение и увеличение масштаба 90% и 110%
+  ☐ Треугольники как в Barbershop:
+    Ошибка:
+    ☐ фиксировать треугольники положением top в px. Почему? Верстка не проходит тест на переполнение. Треугольник не может адаптироваться если изменяется высота секции.
+    Решение:
+    ☐ Использовать проценты. Все работает.
+  ☐ Центровка + флекс:
+    ☐ Вопрос. Как отцентровать текст в блоке по горизонтали и вертикали если размеры неизвесты или будут меняться?
+    Решение:
+    ☐ display flex + margin auto. Пример - .container { ширина; высота; марджин; цвет; display flex} .container__text--center { ...; margin: auto }
+  ☐ Поток. То что должно в нем оставаться:
+    ☐ тег small он же класс legend - отличный пример бессилия верстальщика. На разных версиях он находится в слишком разных местах. Поэтому его приходиться дублировать. И ненужный на других версиях прятать.
+    Почему его нельзя перенести:
+    ☐ Потому-что это текст - текст должен быть в потоке. И когда элемент в потоке в одном месте в одном блоке, а в другом месте вообще внутри другого блока и тоже должен оставаться в потоке - здесь выход только один дублировать. В студенческих макетах таких мест с дублированием нет! Значит в pink, sedona, mishka - схожие ситуации точно решаются при помощи: position: absolute и/или flexbox
+  ☐ Фон:
+    Если фон будет картинкой, нужно подстраховаться на случай
+    ☐ Медленной подгрузки фона - контрастный текст
+    ☐ Не подгрузки png - похожий средний оттенок
+      - color: $white;
+      - background: $black url(../img/pattern-black.png);
+  ☐ button VS a:
+    ☐ Почти все, что выглядит как кнопка - должно быть оформленно ССЫЛКОЙ!
+    ☐ Исключения - JS. Если на элемент будет повешено событие JS, тогда используется <button>
+    ☐ current page/active/selected - страница на которой находиться пользователь не должна работать как ссылка. Не должна отзываться на клик, pointer, hover, focus (Tab + Enter).
+    Решение:
+    ☐ простое - не прописывать ссылке аттрибут href: <a>Главная</a>
+    use-case:
+      ☐ Гамбургер. <button class="main-nav__toggle" type="button">Открыть меню</button>
+      ☐ The primary reason for using a <button> is that there can be stuff inside. A common use case  would be something like: <button> <img src="tiny_birthday_cake.png" alt=""> Submit </button> While an input can be <input type="image">, this mixed content would be hard to pull off.
+      ☐ <button class="btn disabled gallery-prev" type="button">Назад</button>
+        <button class="btn gallery-next" type="button">Вперед</button>
+      ☐ <button> стилизуется гораздо легче, чем input type="submit". Поэтому ее можно использовать и внутри формы - <button class="btn" type="submit">Отправить</button>
+      ☐ Логин войти - <button type="submit" class="btn">Войти</button>
+  ☐ picture/img:
+    ☐ Note: z-index only works on positioned elements (position:absolute, position:relative, or position:fixed). Просто добавь por в img код и z-index заработает!
+    ☐ Если изображение в макете по умолчанию находиться в состоянии прозрачности, то на стадии нарезки графики нужно сохранять изображение без прозрачности, а затем в верстке на img повесить свойство {opacity: 0.2-0.9;}
+  ☐ При создании новых страниц:
+    ☐ Копируется вся страница index.html, из нее удаляется блоки внутри page-main
+    ☐ page-main - переименовывается в соответствии с именем новой страницы (page-form, page-photo)
+    ☐ В меню изменяется активная (выбранная) страница на новую. Главной странице задается путь index.html
+    ☐ На самой главной странице прописывается путь к новой странице (<a class="main-nav__link" href="index-form.html">Конкурс</a>)
+  ☐ Font/Шрифт:
+    ☐ Если lighter (font-weight) не работает, то дело в том, что у какого-то свойства был bold, поэтому lighter превращает шрифт в normal.
+      Решение:
+      ☐ Записать шрифт в виде числа. font-weight: 200.
+  ☐ Landing Page:
+    ☐ Если сайт представляет из себя 1 страницу то, порой гораздо логичнее для увеличения скорости загрузки вставлять css, svg, javascript - прямо в HTML!
+  ☐ issue. Фоновая картинка:
+    Есть интересный момент, который гипотетически может ответить на вопрос почему моя фоновая картинка для шапки ездила в Violet несмотря на, вроде бы, правильный css. Исламов. Урок 13: Он выделил и слой с картинкой и макрос, и сначала объединил их в одну папку. Затем выделил папку и нажал горячую клавишу F12. Он не отключал, как я, всякие окна или заголовки. Может быть моя ошибка была не в коде, а в неправильной графике?
+  ☐ Наброски отрывочной информации:
+    ☐ SVG - вставляется. 3 способами см. evernote
+    ☐ Центровка контента, всего сайта. Я так понимаю делается через  @include container-fluid(); А следовательно такие вещи должны подстраиваться от макета к макету.
+  ☐ JS:
+    ☐ $(function () { код }); внутри анонимной функции нужно записывать код js причем разный код записывается в одной и той же анонимной функции.
+--- ✄ ----------------
+Dvorak:
+  ✔ Идея такая - пока будешь учиться пользоваться Dvorak - сочетании Shift+Alt. Переход на русский по прежнему будет на Capslock. @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Нужно придумать альтернативу придуманным мною шорткатам - Ctrl+C = `; Думаю о клавише перед backspace Ctrl+\ или F5 @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Вместо крестовины из ESDF+WR думаю о IKJL+UO причем зеркально, то есть клавиши ближе к левому краю будут означать движение вперед, а те, что ближе к правому будут означать движение назад. @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Ну а функция Эммета по увеличению и сокращению чисел станет только лучше - ALT+E - на 1 вверх, ALT+D - на 1 вниз, ALT+W - на 0.1 меньше, ALT+R - на 0.1 больше. @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Ctrl+[ / Ctrl+х - Ctrl+/(этот знак "/" в дворак) @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Ctrl+up/down - Ctrl+I/K - перемещение строки @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Ctrl+Alt+down - Alt+t/Alt+е - мултикурсор @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Ctrl+Shift+d -Alt+y - дубликат строки (сразу и выделение и копирование) @done(2017-09-11 14:32) @project(Dvorak)
+  ✔ Alt+backspace - удаляет целые слова - быстрое удаление в общем. @done(2017-09-11 14:32) @project(Dvorak)
+cmder:
+  ✔ pro  | Переходит в папку projects @done (17-02-14 15:18)
+  ✔ cd + "буква" + Tab | Автозавершение. Нужна начальная буква папки, затем Tab @done (17-02-14 15:19)
+  ✔ Ctrl + C  | Остановливает процесс - сервер. @done (17-02-14 15:18)
+  ✔ Выделение мышью  | Копирование @done (17-02-14 15:18)
+  ✔ Ctrl + V  | Вставить @done (17-02-14 15:18)
+  ✔ cd  | Переходит в другую папку @done (17-02-14 15:18)
+  ✔ cd .. | Переход к родительской папке (вверх на 1 уровень) @done (17-02-14 15:18)
+  ✔ cd -  | Переход к последней рабочей папке (команда «назад») @done(2017-09-11 14:35) @project(cmder)
+  ✔ ls | Показать содержимое папки @done(2017-09-11 14:35) @project(cmder)
+  ✔ ls -a  | Показывать скрытые файлы и папки @done (17-02-14 15:19)
+  ☐ ls Spoon-Fork -a -1 | Сделать тоже самое, но для нужной тебе папки. В данном случае Spoon
+  ✔ mkdir имя | Создать папку с именем «имя» @done (17-02-14 15:19)
+  ☐ mkdir -p {имена, папок}  | Создаст папки в выбранной директории. Другие способы создавали лишнюю начальную папку. После запятой нет пробела. mkdir -p {css,js}
+  ☐ mkdir project project/css project/js  | Сразу создает несколько папок, плюс сразу с нужной вложенностью.
+  ✔ touch index.html  | Создаст файл index.html @done (17-02-14 15:19)
+  ✔ touch index.html css/style.css js/script.js  | Создать файлы (папки css/ и js/ должны уже существовать) @done (17-02-14 15:19)
+  ☐ cp index.html index2.html  | Копирование файла index.html в тот же каталог с переименованием в index2.html
+  ☐ cp index.html old/  | Копирование файла index.html в папку old/. Если папка old находится на том же уровне. Если нет, проще через cd зайти в нужный уровень и тогда использовать эту команду
+  ☐ cp js3/ js4/ -r  | Копирование папки со всем ее содержимым. На одном уровне.
+  ☐ mv index.html old  | Перемещение файла в папку на том же уровне
+  ☐ mv index.html old/new_name.txt  | Перемещение файла в папку с переименованием файла
+  ☐ mv order.txt orderNew.txt  | Переименовать файл
+  ☐ subl  | Открывает sublime
+  ✔ rm ghost.png  | Удалить файл @done (17-02-14 15:19)
+  ☐ rm -rf old  | Удалить папку и все из нее
+  ☐ grep -i -n --color 'carousel' index.html css/style.css Команда найти слово carousel в двух указанных файлах (с игнором регистра), вывести строки с этим словом и номера строк (искомое слово подсветить) Очень удобно.
+  ☐ find . -iname '*ind*' Найти в текущей папке (и подпапках) все файлы, имена которых содержат ind и показать списком.
+Git:
+  ✔ touch .gitignore @done (17-02-14 16:10)
+  ☐ git init
+  ✔ git status @done (17-02-14 16:10)
+  ☐ git pull
+  ✔ git commit -m "Комментарий Коммита" @done (17-02-14 16:10)
+  ✔ git push @done (17-02-14 16:10)
+  ✔ git add . @done (17-02-14 16:10)
+  ✔ git log --oneline @done (17-02-14 16:10)
+  ✔ git recall -d 1 | Удобнее чем log дает возможность посмотреть коммиты за нужное количество дней. NB! не нажимай Ctrl + C для выхода из режима. Его тогда глючит. Только q или Ctrl + Z Tab + arrows - открывает нужный коммит. q - quit @done (17-02-14 16:11)
+  ☐ Как создать новую ветку? Создаем локальную ветку adaptive и переключаемся в нее: git checkout -b adaptive. git checkout - команда, которая переключается между ветками. -b - параметр для создания новой ветки. После -b идет название новой ветки. git checkout -b adaptive
+    ☐ git checkout имя ветки - переключит на нужную ветку
+Sublime:
+ ✔ Ctrl+Alt+Enter  | Интерактивные аббревиатуры. @done (17-02-14 15:15)
+ ✔ Shift + Ctril + /  Комментирование всего тега без выдел. Ставится в нужный тег. Например, если это body, то закомментируется весь html код, кроме доктайпа. @done (17-02-14 15:15)
+ ✔ Ctrl+Shift+G Оборачивание текста в тег, с любым количеством вложенности @done (17-02-14 15:15)
+ ✔ Alt + x | Удаление оборачивающего тега с сохранением табуляции. Курсор внутри тега, который удаляем жмем команду, и внутренние теги передвинулись на строчку влево, поправлять ничего не нужно @done (17-02-14 15:17)
+ ✔ Shift + Ctrl + ' Изменение только тега. С section на aside допустим. ' (Э) @done (17-02-14 15:17)
+ ✔ Alt + Shift + 2 | Количество панелей @done (17-02-14 15:17)
+
+ ☐ Ctrl + Shift + L | Массовое редактирование - курсор в конце каждой линии
+ ☐ Alt + a [up]+ s [down]+ d [left]+ f [right]+ e [Home]+ r [End] Замена стрелкам и кнопкам Home и End
+ ☐ Ctrl + arrow right/left  | Перемещение к словам или тегам.
+ ☐ Shift + Ctrl + . Shift + Ctrl +,  | Выделение важных участков редактирования: теги и их атрибуты. Вверх и вниз по коду.
+ ☐ Shift + Ctrl + D  | Копирование БЕЗ ВЫДЕЛЕНИЯ мышью! Правда только одной строки, но все-таки.
+ ☐ Ctrl + D, Сtrl + H  | Поиск и замена нескольких слова или тега в ручную. Заменит все найденые и выбранные слова
+ ☐ Alt + вверх/вниз - Изменение чисел на долю 0.1      Ctrl + вверх/вниз - Изменение чисел на 1 - 1             Shift Alt + вверх/вниз - Изменение чисел на 10 - 10
+ ☐ Ctrl + , | Иерархическое выделение. Ставим курсор внутрь какого-либо тега и тогда зажимаем вводим Ctrl и после этого последовательно выделяем запятой.
+ ☐ Ctrl + Alt + J | Перемещение к закрывающему и открывающем тегу
+ ☐ Ctrl + Alt + <-- Ctrl + Alt + --> Быстрое перемещение между точками редактирования. Внутрь пустых тегов и не заполненных атрибутов.
+Atom:
+  ✔ f1 - [ctrl-shift-p] - Package Control @done(2017-03-02 16:26) @project(Atom)
+    ✔ g > gist list @done(2017-03-02 16:26) @project(Atom)
+  ✔ ctrl-shift-i - Opens up the Chrome Developer Tools/Console @done(2017-03-02 16:26) @project(Atom)
+  ✔ alt-x - выделение строки без мыши @done(2017-03-02 16:27) @project(Atom)
+  ✔ ctrl-d - быстрый поиск/редактирование таких же слов (курсор должен стоять на нем) @done(2017-03-02 16:27) @project(Atom)
+  ✔ ctrl-alt-w - wrap. Обернуть текст в тег @done(2017-03-02 16:27) @project(Atom)
+Emmet:
+ ✔ m0-20  margin: 0 20px; @done (17-02-14 16:27)
+ Shortcuts IMPORTANT!:
+     // HEX в RGBA
+   .hex-rgba {
+     bgc#c.6 background-color: rgba(204, 204, 204, 0.6);
+     c#0.3   color: #... 3px;
+
+     example $text-color-base to rgba
+     $text-color-base - #283645
+     color: rgba(40, 54, 69, 0.5);
+     or
+     cr color: rgba($text-color-base, 0.5);
+   }
+
+   .border {
+     bd  border: $btn;
+     bd# border: 1px solid #000;
+     bd3 border: 1px solid $text-color;
+     bdt border: 1px solid transparent;
+
+     "bd": "border:${1:\\$btn};",
+     "bd#": "border:${1:1px} ${2:solid} #${3:000};",
+     "bd3": "border:${1:1px} ${2:solid} ${3:\\$text-color};",
+   	"bdt": "border:${1:1px} ${2:solid} ${3:transparent};",
+
+     bt  border-top: $btn;
+     bt# border-top: 1px solid #000;
+     bt3 border-top: 1px solid $text-color;
+     btt border-top: 1px solid transparent;
+     br  border-right: $btn;
+     br# border-right: 1px solid #000;
+     br3 border-right: 1px solid $text-color;
+     brt border-right: 1px solid transparent;
+     bb  border-bottom: $btn;
+     bb# border-bottom: 1px solid #000;
+     bb3 border-bottom: 1px solid $text-color;
+     bbt border-bottom: 1px solid transparent;
+     bl  border-left: $btn;
+     bl# border-left: 1px solid #000;
+     bl3 border-left: 1px solid $text-color;
+     blt border-left: 1px solid transparent;
+   }
+
+   .background {
+     bg  background: $brand url(img/) no-repeat 0px 0px;
+     bg# background: #fff url(img/) no-repeat 0px 0px;
+     bg3 background: #fff url(img/) no-repeat 0px 0px;
+     bgt background: transparent url(img/) no-repeat 0px 0px;
+
+     "bg": "background:${1:\\$brand} url(${2:img/}) ${3:no-repeat} ${4:0px} ${5:0px};",
+     "bg#": "background:#${1:fff} url(${2:img/}) ${3:no-repeat} ${4:0px} ${5:0px};",
+     "bg3": "background:#${1:fff} url(${2:img/}) ${3:no-repeat} ${4:0px} ${5:0px};",
+     "bgt": "background:${1:transparent} url(${2:img/}) ${3:no-repeat} ${4:0px} ${5:0px};",
+   }
+
+   .font-family {
+     ff  font-family: $font-family-base;
+     ff# font-family: ;
+     ff3 font-family: ;
+
+   	"ff": "font-family:${1:\\$font-family-base};",
+     "ff#": "font-family:|;",
+     "ff3": "font-family:|;",
+   }
+
+   .color {
+     c   color: $text-color;
+     c#  color: #000;
+     c3  color: #000;
+     cl  color: $link;
+     cb  color: $btn;
+     cf  color: $form;
+     cr  color: rgba($text-color, .5);
+     cr# color: rgba(0, 0, 0, .5);
+     cr3 color: rgba(0, 0, 0, .5);
+
+   	"c": "color:${1:\\$text-color};",
+     "c#": "color:#${1:000};",
+     "c3": "color:#${1:000};",
+     "cl": "color:${1:\\$link};",
+     "cb": "color:${1:\\$btn};",
+     "cf": "color:${1:\\$form};",
+   	"cr": "color:rgba(${1:\\text-color}, .${2:5});",
+     "cr#": "color:rgba(${1:0}, ${2:0}, ${3:0}, .${4:5});",
+     "cr3": "color:rgba(${1:0}, ${2:0}, ${3:0}, .${4:5});",
+
+     Переписала эти правила ибо редко пользуюсь
+     cl clear: both;
+     cb clear: both;
+     cf column-fill:;
+   	"cl": "clear:${1:both};",
+   	"cl:n": "clear:none;",
+   	"cl:l": "clear:left;",
+   	"cl:r": "clear:right;",
+   	"cl:b": "clear:both;",
+
+   	"clear": "clear:${1:both};",
+   	"clear:n": "clear:none;",
+   	"clear:l": "clear:left;",
+   	"clear:r": "clear:right;",
+   	"clear:b": "clear:both;",
+   }
+
+   .background-color {
+     bgc   background-color: $brand;
+     bgc#  background-color: #fff;
+     bgc3  background-color: #fff;
+     bgcl  background-color: $link;
+     bgcb  background-color: $btn;
+     bgcf  background-color: $form;
+     bgcbd background-color: $border;
+     bgct  background-color: transparent;
+
+     "bgc": "background-color:${1:\\$brand};",
+     "bgc#": "background-color:#${1:fff};",
+     "bgc3": "background-color:#${1:fff};",
+     "bgcl": "background-color:${1:\\$link};",
+     "bgcb": "background-color:${1:\\$btn};",
+     "bgcf": "background-color:${1:\\$form};",
+     "bgcbd": "background-color:${1:\\$border};",
+     "bgc:t": "background-color:transparent;",
+   }
+
+   .font-size {
+     fz  font-size: $font-size;
+     fz# font-size: 18px;
+     fz3 font-size: 18px;
+
+     "fz": "font-size:${1:\\$font-size};",
+     "fz#": "font-size:${1:18px};",
+     "fz3": "font-size:${1:18px};",
+   }
+
+   .include {
+     @i @include container-fluid();
+     2i @include container-fluid();
+
+     "@i": "@include container-fluid();",
+     "2i": "@include container-fluid();",
+   }
+
+   .media {
+     @m  @media ($tablet) {}
+     @md @media ($desktop) {}
+     2m  @media ($tablet) {}
+     2md @media ($desktop) {}
+
+   	"@m": "@media ${1:(\\$tablet)} {\n\t|\n}",
+     "@md": "@media ${1:(\\$desktop)} {\n\t|\n}",
+   	"2m": "@media ${1:(\\$tablet)} {\n\t|\n}",
+     "2md": "@media ${1:(\\$desktop)} {\n\t|\n}",
+   	"@media": "@media ${1:screen} {\n\t|\n}",
+   }
+
+   .line-height {
+     lh  line-height: $line-height;
+     lh# line-height: 1.5em;
+     lh3 line-height: 1.5em;
+
+   	"lh": "line-height:${1:\\$line-height};",
+     "lh#": "line-height:${1:1.000em};",
+     "lh3": "line-height:${1:1.000em};",
+   }
+ ✔ m-a m:a   margin: auto; margin: auto; @done (17-02-14 16:28)
+ ☐ Tab, Tab | Удобно. Если после развертывания Tab, нажать Tab курсор переместится ко второй точке редактирования.
+ ☐ sect <section>
+ ☐ hdr <header>
+ ☐ p>h1>h2^^div  Простой подъем на уровень вверх.
+ ☐ (p>h1>h2)+div Подъем на вверх за счет группировки.
+ ☐ ul>li*5>a  Приумножение, знак ставится после тега, который должен повторяться. Если после развертывания формулы нажимать только на Tab при записи, то крестовиной пользоваться не придется.
+ ☐ ul>li.class$*3>a     1-3
+ ☐ ul>li.class$$$*3>a   001-003
+ ☐ ul>li.class$@7*3>a   $@цифра   7-9
+ ☐ ul>li.class$@-*3>a   $@-       3-1
+ ☐ ul>li.class$@-5*3>a  $@-цифра  7-5
+ ☐ lorem  lorem100  | Типографическая рыба. Стандарт. Абзац будет в это количество слов. Удобно при тестировании верстки на последнем этапе.
+ ☐ table>.row>.cell table+ ul+ Автовыбор таблица. <table><tr class="row"><td class="cell"></td></tr></table>
+ ☐ sect>hdr>h1|e  Фильтр |e для мнемоник. Очень полезен если нужно записать код в тексте &lt;section&gt; &lt;header&gt; &lt;h1&gt;&lt;/h1&gt;
+ ☐ формула|c   Если есть куча </div> и вложенностей и ты боишся ошибиться какой див кому принадлежит. Ставь в конце коммента фильтр с
+ ☐ op.4  opacity: .4;
+ ☐ p20p  padding: 20%;
+ ☐ m10  margin: 10px;
+ ☐ m10-30p-5  margin: 10px 30% -5px;
+ ☐ c-rgba  color: rgba(0, 0, 0, .5); перемещение Tab
+ ☐ p-40+pr15  padding: -40px; padding-right: 15px;
+ ☐ ib+vat+m0+p0+bg#0+brs30 display: inline-block vertical-align: top margin: 0 padding: 0 background: #000 border-radius: 30px
+Scss:
+  ☐ FLEX:
+    ☐ flex-flow - сокращенная запись 2 свойств (flex-direction и flex-wrap)
+    ☐ flex: 0 1 auto. Дефолтные параметры для flex-grow, flex-shrink, flex-basis - записывать лучше в коротком варианте. Вот такой парадокс.
+  ☐ Mixin - запись правила. В файле mixins.scss
+    ☐ @mixin container() {}
+      ☐ Миксин вставка в любое scss правило, любого селектора.
+       ☐ @include container();
+  ☐ Переменная - запись правила. В файле variables.scss
+    - $bg-darkgrey: #292929;
+      ☐ Переменная вставка
+      ☐ background-color: $bg-darkgrey;
+  ☐ Фон - если фон будет картинкой, нужно подстраховаться на случай
+    ☐ На случай медленной подгрузки фона - контрастный текст
+    ☐ Не подгрузки png - похожий средний оттенок
+      - color: $white;
+      - background: $black url(../img/pattern-black.png);
+  ☐ @font-face
+     @font-face {
+     font-family: 'MyWebFont';
+     src: url('webfont.eot'); /* IE9 Compat Modes */
+     src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+          url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+          url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+          url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+          url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+     }
+    ☐ Большую часть времени достаточно этого:
+     ☐ @font-face {
+     ☐ font-family: 'MyWebFont';
+     ☐ src:  url('myfont.woff2') format('woff2'),
+          ☐ url('myfont.woff') format('woff');
+     ☐ }
+    ☐ If you need a sort of a happy medium between full support and practical support, this will cover a few more bases:
+     ☐ @font-face {
+       ☐ font-family: 'MyWebFont';
+       ☐ src: url('myfont.woff2') format('woff2'),
+            ☐ url('myfont.woff') format('woff'),
+            ☐ url('myfont.ttf') format('truetype');
+     ☐ }
+    Here are a few hosted font services:
+   Cloud Typography
+   Typekit
+   Fontdeck
+   Webtype
+   Fontspring
+   Typotheque
+   Fonts.com
+   Google Fonts
+   Font Squirrel
+PlainTasks:
+  ✔ Ctrl+Shift + P - вбить task выбрать new document - создать новый документ таск @done (17-02-13 17:02)
+  ✔ ":" - Заголовок должен иметь двоеточие, чтобы быть таковым @done (17-02-13 17:02)
+  ✔ Ctrl + Enter - создать задачу @done (17-02-13 17:02)
+  ✔ Ctrl + Shift + up / down - Передвинуть задачу @done (17-02-13 17:02)
+  ✔ "@" - добавить тег к задаче @done (17-02-13 17:02)
+  ✔ Ctrl + D - Done поставить галочку @done (17-02-13 17:02)
+  ✔ Shift + Ctrl + a - Архивирует все выполненные задачи @done (17-02-13 17:02)
+  ✔ Ctrl + Z - Разархивирует задачи @done (17-02-13 17:02)
+Photoshop:
+  ✔ F12  Экспорт графики. Кликаешь (выделяешь нужное изображение) и жмешь F12. Shortcut сделан вручную. Записан в Photoshop вкладка Window > Actions > В гамбургере выбрать New actions - выбрать название указать кнопку или сочетание таковых и кликнуть рекорд. Дальше сделать все те действия, которые ты делала вручную и остановить запись. Можно выбрать моменты, которые будут приостанавливать процесс (в моем случае для выбора формата файла).Сочетает в себе такие действия: @done (17-02-21 13:13)
+    ✔ 1. Duplicate layer @done (17-02-14 16:33)
+    ✔ 2. New Document @done (17-02-14 16:33)
+    ✔ 3. Ok @done (17-02-14 16:33)
+    ✔ 4. Image > Trim @done (17-02-14 16:33)
+    ✔ 5. Ok @done (17-02-14 16:33)
+    ✔ 6. File > Export > Save for Web @done (17-02-14 16:33)
+    ✔ 7. Выбор формата файла > Сохранение под именем @done (17-02-14 16:33)
+    ✔ 8. Закрыть окно нового документа. @done (17-02-14 16:33)
+  ✔ Ctrl + ; - вкл/выкл функции guidens (сетка дизайнера) @done (17-02-21 13:15)
+  ✔ F11 Объединение слоев. Выделяешь нужные слои и жмешь F11. Shortcut сделан вручную. Записан в Photoshop вкладка Window > Actions > В гамбургере выбрать New actions. Сочетает в себе такие действия: @done(2017-03-07 13:46)
+    ✔ 1. Duplicate layer @done(2017-03-07 13:45)
+    ✔ 2. New Document @done(2017-03-07 13:45)
+    ✔ 3. Ok @done(2017-03-07 13:45)
+    ✔ 4. Выделение объектов  @done(2017-03-07 13:45)
+    ✔ 5. Convert to Smart Object @done(2017-03-07 13:45)
+Семантика HTML5:
+  ☐ section VS article:
+  ☐ Трюки:
+    ☐ current page/active/selected - страница на которой находиться пользователь не должна работать как ссылка. Не должна отзываться на клик, pointer, hover, focus (Tab + Enter). Решение простое - не прописывать ссылке аттрибут href: <a>Главная</a>
+    ☐ blockquote > p
+JavaScript:
+  SlickSlider:
+    ☐ Весрия 1.6.0. лежит на яндексе, в Tools for FED.
+    ☐ Пошаговое подключение в evernote
+--- ✄ ----------------
+BUGS:
+  ☐ Firefox не переваривает отрицательный margin. Есть несколько решений. https://stackoverflow.com/questions/21471531/issue-with-negative-margin-value-in-firefox Я пока выбрала float left. Пока это вроде ни на что не влияет.

@@ -1,0 +1,9 @@
+// Проверить совпадает ли название папок с шрифтами, с названием в url
+// thin - 100, extralight - 200, light - 300, regular - 400, medium - 500, semibold - 600, bolf - 700, extrabold - 800, black - 900. Словами записывается только bold, regular - не пишется
+
+@include font-face ("Raleway", "../fonts/Raleway-Regular/Raleway-Regular");
+@include font-face ("Raleway", "../fonts/Raleway-Bold/Raleway-Bold", bold);
+@include font-face ("Raleway", "../fonts/Raleway-ExtraBold/Raleway-ExtraBold", 800);
+@include font-face ("FiraSans", "../fonts/FiraSans-Regular/FiraSans-Regular");
+@include font-face ("FiraSans", "../fonts/FiraSans-Bold/FiraSans-Bold", bold);
+@include font-face ("FiraSans", "../fonts/FiraSans-ExtraBold/FiraSans-ExtraBold", 800);

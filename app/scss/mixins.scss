@@ -1,0 +1,175 @@
+// @mixin container-fluid()
+// t-width% = t-wrapper / t-макет  84% = 640px / 768% = 83.3% ~ 84% (0.84)
+// d-width% = d-wrapper / d-макет   84% = 1008px / 1200% = 84%
+
+// t-width% = d-width%;              84% = 84%
+// @mixin container-fluid() {      @mixin container-fluid() {
+//   width: auto;                    width: auto;
+//   @media ($md) {       @media ($md) {
+//     width: t-width %;                width: 84%;
+//     max-width: d-wrapper px;         max-width: 1008px;
+//     margin: 0 auto;                  margin: 0 auto;
+//   }                                }
+// }                                }
+
+// 88% = 620px / 700% = 88.5% ~ 88% (0.88)
+// 78% = 940px / 1200% = 78.3%
+// if { t-width > d-width} than                 if { 88% > 78%} than
+// @mixin container-fluid() {                   @mixin container-fluid() {
+//   width: auto;                                 width: auto;
+//   @media ($md) {                    @media ($md) {
+//     width: t-width %;                             width: 88%;
+//     max-width: X px (X / t-width = d-макет);      max-width: 1056* px (1056px / 0.88 = 1200px);
+//     margin: 0 auto;                               margin: 0 auto;
+//   }                                            }
+// }                                           }
+// *методом подстановки с 940 и в большую сторону
+
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false) {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+
+    @if $asset-pipeline == true {
+      src: font-url("#{$file-path}.eot");
+      src: font-url("#{$file-path}.eot?#iefix") format("embedded-opentype"), font-url("#{$file-path}.woff") format("woff"), font-url("#{$file-path}.ttf") format("truetype");
+    }
+    @else {
+      src: url("#{$file-path}.eot");
+      src: url("#{$file-path}.eot?#iefix") format("embedded-opentype"), url("#{$file-path}.woff") format("woff"), url("#{$file-path}.ttf") format("truetype");
+    }
+  }
+}
+
+@mixin clearfix() {
+  &::after {
+    content: "";
+
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin container() {
+  width: 280px;
+  margin: 0 auto;
+
+  @media ($md) {
+    width: 620px;
+  }
+
+  @media ($xl) {
+    width: 940px;
+  }
+}
+
+@mixin container-fluid() {
+  width: auto;
+
+  @media ($md) {
+    width: 88%;
+    max-width: 1056px;
+    margin: 0 auto;
+  }
+}
+
+// Для %placeholders в сниппете @include
+
+$mixin-xs: 320px;
+$mixin-xs-locked: 575px;
+$mixin-sm: 576px;
+$mixin-md: 768px;
+$mixin-lg: 992px;
+$mixin-xl: 1200px;
+
+@mixin md($size, $type: min, $pixels: $mixin-xs) {
+  @if $size == 'xs' {
+    @media screen and ($type + -width: $mixin-xs) {
+        @content;
+    }
+  }
+  @if $size == 'xs-locked' {
+    @media screen and (max + -width: $mixin-xs-locked) {
+        @content;
+    }
+  }
+  @else if $size == 'sm' {
+    @media screen and ($type + -width: $mixin-sm) {
+        @content;
+    }
+  }
+  @else if $size == 'md' {
+    @media screen and ($type + -width: $mixin-md) {
+        @content;
+    }
+  }
+ @else if $size == 'lg' {
+    @media screen and ($type + -width: $mixin-lg) {
+        @content;
+    }
+  }
+  @else if $size == 'xl' {
+    @media screen and ($type + -width: $mixin-xl) {
+     @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+// Ретина
+// Образец применения есть в scss slider bgi 1t/1w.
+// Для одного изображения без версий -md, -xl
+@mixin retina-bgi-one($file, $type, ) {
+  background: url($file + '.' + $type);
+  background-size: cover;
+  @media (-webkit-min-device-pixel-ratio: 1.25),
+         (min-resolution: 120dpi)
+  	{
+      background: url($file + '@2x.' + $type);
+      background-size: cover;
+  	}
+}
+
+// Ретина
+// Образец применения есть в scss slider bgi 2t/2w
+// Включает версии -md, -xl
+@mixin retina-bgi-multi($file, $type, ) {
+  background: url($file + '.' + $type);
+  background-size: cover;
+  @media (-webkit-min-device-pixel-ratio: 1.25),
+         (min-resolution: 120dpi)
+  	{
+      background: url($file + '@2x.' + $type);
+      background-size: cover;
+  	}
+  @media ($md) {
+    background: url($file + '-md' + '.' + $type);
+    background-size: cover;
+    @media (-webkit-min-device-pixel-ratio: 1.25),
+           (min-resolution: 120dpi)
+      {
+        background: url($file + '-md' + '@2x.' + $type);
+        background-size: cover;
+      }
+  }
+  @media ($xl) {
+    background: url($file + '-xl' + '.' + $type);
+    background-size: cover;
+    @media (-webkit-min-device-pixel-ratio: 1.25),
+           (min-resolution: 120dpi)
+      {
+        background: url($file + '-xl' + '@2x.' + $type);
+        background-size: cover;
+      }
+  }
+}
+
+// Шрифт
+// Fonts. Тоже самое только с REM вместо EM
+$browser-context: 16; // Default не менять
+@function rem($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}rem;
+}

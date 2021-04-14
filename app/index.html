@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+  <meta charset="UTF-8">
+	<!-- <base href="/"> -->
+
+  <title>Название сайта - Главная</title>
+
+  <meta name="keywords" content=".">
+  <!--1.Условие. description заменить инфой из ТЗ заказчика или оставить пустым-->
+  <meta name="description" content="Купить или заказать. Название продукта, товара. Цена такая-то. Причем слово цена важна. Название магазина">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1,  maximum-scale=1">
+  <!--2.Условие. Если нужно поддерживать IE 9 или IE 8 расскомментировать. Edge это не название браузера-->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+
+  <meta name="format-detection" content="telephone=no">
+
+  <!--3.Условие. Нужна только после deploy сайта на сервер, когда будет известен домен. От content в og:image будет зависить как будет отображаться картинка (ссылка) на этот сайт в мобильном (в том числе на рабочем экране) или соцсетях-->
+  <meta property="og:image" content="path/to/image.jpg">
+
+  <!--4.Условие. Перед deploy убрать локальный адрес из url favicon и заменить на реальный адрес. В идеале они должны лежать на уровне index.html. И не забыть их сделать впринципе-->
+  <link rel="icon" href="img/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png">
+  <!-- <link rel="shortcut icon" type="image/x-icon" href="http://localhost:5555/img/favicon/favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="http://localhost:5555/img/favicon/apple-touch-icon-180x180.png">-->
+
+  <!-- 4.Условие. Работают в совокупности Только если дизайнер передаст иконку под панель на мобильном -->
+  <!-- <link rel="manifest" href="manifest.json"> -->
+
+  <meta name="theme-color" content="#000000">
+
+  <link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body>
+
+  <!-- Пример как пользоваться svg. Но пример очень грубый требует большой доработки ибо мне не нравится моя нынешняя схема работы с SVG -->
+  <svg style="display: none" xmlns="http://www.w3.org/2000/svg"><symbol id="emmet" viewBox="0 0 256 256" preserveAspectRatio="xMinYMin meet"><circle fill="#1C1C20" cx="127.555" cy="128.184" r="127.555"/><path d="M178.496 124.737l-14.205-14.205 7.306-30.035-30.441 6.9-13.8-13.8 68.187-17.047-17.047 68.187z" fill="#BAFFA9"/><path d="M154.956 218.901L33.192 97.138 101.38 80.09l13.8 13.8-48.706 12.176 27.6 27.6 32.064-7.712-8.117 31.658 27.6 27.6 12.176-48.705 14.205 14.206-17.046 68.187z" fill="#7ACB16"/></symbol><symbol id="git" viewBox="0 0 16 16"><path d="M15.698 7.287L8.708.302a1.034 1.034 0 0 0-1.46 0L5.8 1.752l1.84 1.84a1.225 1.225 0 0 1 1.552 1.561l1.774 1.773a1.225 1.225 0 0 1 1.268 2.025 1.228 1.228 0 1 1-2.005-1.33L8.57 5.97v4.352c.117.057.227.134.325.23.475.48.475 1.255 0 1.734-.48.48-1.26.48-1.74 0s-.48-1.254 0-1.733c.12-.12.257-.21.403-.27V5.89a1.225 1.225 0 0 1-.664-1.607l-1.81-1.816L.29 7.254c-.4.404-.4 1.056 0 1.46l6.992 6.984a1.03 1.03 0 0 0 1.458 0l6.958-6.953a1.03 1.03 0 0 0 0-1.458" fill-rule="nonzero"/></symbol></svg>
+
+  <svg class="git-blue" width="50" height="50">
+    <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#git"></use>
+  </svg>
+  <svg class="git-red" width="50" height="50">
+    <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#git"></use>
+  </svg>
+
+  <header class="page-header">test</header>
+
+  <main class="page-main"></main>
+
+  <footer class="page-footer"></footer>
+
+  <script src="js/script.min.js"></script>
+
+</body>
+</html>
