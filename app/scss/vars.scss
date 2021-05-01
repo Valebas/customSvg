@@ -27,13 +27,41 @@ img {
 }
 
 // Media
-// Если вносишь изменения, не забудь отразить их в mixins.scss в %placeholders
-$xs: ("min-width: 320px");
-$xs-locked: ("max-width: 575px");
-$sm: ("min-width: 576px");
-$md: ("min-width: 768px");
-$lg: ("min-width: 992px");
-$xl: ("min-width: 1200px");
+// Если вносишь изменения в Media, внеси такие же в Breakpoints
+$media-mob-xs: ("min-width: 320px");
+$media-mob-s: ("min-width: 375px");
+$media-mob-m: ("min-width: 425px");
+$media-mob-landscape: ("min-width: 480px");
+$media-tablet-sm: ("min-width: 576px");
+$media-tablet-md: ("min-width: 768px");
+$media-laptop-lg: ("min-width: 992px");
+$media-desktop-xl: ("min-width: 1280px");
+$media-tv-xxl: ("min-width: 1440px");
+
+//Breakpoints
+//Дублирование данных для mixin container ибо медиа не принимает переменных
+$mob-xs: 320px;
+$mob-s: 375px;
+$mob-m: 425px;
+$mob-landscape: 480px;
+$tablet-sm: 576px;
+$tablet-md: 768px;
+$laptop-lg: 992px;
+$desktop-xl: 1280px;
+$tv-xxl: 1440px;
+
+//Content-size 
+//Работает за счет .wrap между body и остальным контентом, содержащим include container 
+// Например, если нужно чтобы контент на 768px занимал 720px по центру. Т.о. на 991px он будет занимать 939px 
+$content-mob-xs: 320px;
+$content-mob-s: 320px;
+$content-mob-m: 380px;
+$content-mob-landscape: 460px;
+$content-tablet-sm: 540px;
+$content-tablet-md: 728px;
+$content-laptop-lg: 950px;
+$content-desktop-xl: 1210px;
+$content-tv-xxl: 1320px;
 
 // PALETTE
 // shortcut "cr" => color: rgba(text-color, .5);
