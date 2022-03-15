@@ -1,4 +1,5 @@
 'use strict';
+
 const autoprefixer = require('autoprefixer');
 const concat = require('gulp-concat');
 const csscomb = require('gulp-csscomb');
@@ -7,13 +8,12 @@ const gulp = require('gulp');
 const imagemin = require('gulp-imagemin');
 const jpg = require('imagemin-jpeg-recompress');
 const minify = require('gulp-csso');
-const mqpacker = require('css-mqpacker');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const png = require ('imagemin-pngquant');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const sassGlob = require('gulp-sass-glob');
 const serve = require('browser-sync').create();
 const svgstore = require("gulp-svgstore");
@@ -57,10 +57,7 @@ function css() {
   .pipe(postcss([
     autoprefixer({ overrideBrowserslist: [
       'last 2 versions'
-    ], grid: true }),
-    mqpacker({
-      sort: true
-    })
+    ], grid: true })
   ]))
   .pipe(gulp.dest('app/css'))
   .pipe(minify())
